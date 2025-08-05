@@ -1,0 +1,10 @@
+{
+    "editor.quickSuggestions": {
+        "strings": "on"
+    },
+    "django.snippets.exclude": [
+        
+        "cms",
+        "wagtail"
+    ]
+}
