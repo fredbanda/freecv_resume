@@ -2,7 +2,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { personalInfoSchema, PersonalInfoValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+
 
 export default function PersonalInfoForm() {
     const form = useForm<PersonalInfoValues>({
@@ -18,6 +20,34 @@ export default function PersonalInfoForm() {
             country: '',
         }
     })
+
+useEffect(() => {
+  let isMounted = true;
+  
+  const subscription = form.watch(async () => {
+    if (!isMounted) return;
+    
+    try {
+      const isValid = await form.trigger();
+      
+      if (!isMounted) return;
+      
+      if (isValid) {
+        console.log("Form is valid");
+      } else {
+        console.log("Form is invalid");
+      }
+    } catch (error) {
+      console.error("Validation error:", error);
+    }
+  });
+
+  return () => {
+    isMounted = false;
+    subscription.unsubscribe(); // Call unsubscribe() method on the subscription
+  };
+}, []);
+
   return (
     <>
       <div className="max-w-xl mx-auto space-y-6">
@@ -38,13 +68,12 @@ export default function PersonalInfoForm() {
                   <FormControl>
                     <Input {...fieldValues} 
                     type="file"
-                    accept="image/*"
                     onChange={(e) => {
                         const file = e.target.files?.[0];
                         fieldValues.onChange(file);
                         fieldValues.onBlur();
                     }}
-                    placeholder="Your Photo here (optional)" autoFocus />
+                    placeholder="Your Photo here (optional)" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -58,19 +87,6 @@ export default function PersonalInfoForm() {
                   <FormLabel>Your First Name</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="e.g. Sibusiso" autoFocus />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Resume or CV Name</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="e.g. Sibusiso Zulu" autoFocus />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
