@@ -1,11 +1,29 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-//import GeneralInfoForm from './GeneralInfoForm'
-import PersonalInfoForm from './PersonalInfoForm'
+import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { steps } from './steps';
+import Breadcrumbs from './Breadcrumbs';
+import { Footer } from './_components/Footer';
+import { ResumeValues } from '@/lib/validation';
 
 export default function ResumeEditor() {
+  const searchParams = useSearchParams();
+  const [resumeData, setResumeData] = useState<ResumeValues>({})
+
+
+  const currentStep = searchParams.get('step') || steps[0].key
+
+  function setStep(step: string) {
+    const newSearchParams = new URLSearchParams(searchParams.toString())
+    newSearchParams.set('step', step)
+    window.history.pushState({}, '', `?${newSearchParams.toString()}`)
+  }
+
+  const FormComponent = steps.find(
+    (step) => step.key === currentStep
+  )?.component
+
   return (
     <>
       <div className="flex flex-grow flex-col">
@@ -20,36 +38,16 @@ export default function ResumeEditor() {
         <main className="relative grow">
           <div className="absolute bottom-0 top-0 flex w-full">
             <div className="w-full md:w1/2 overflow-y-auto">
-            <PersonalInfoForm />
+              <Breadcrumbs currentStep={currentStep} setCurrentStep={setStep} />
+              {FormComponent && <FormComponent resumeData={resumeData} setResumeData={setResumeData} />}
             </div>
             <div className="grow md:border-r" />
-            <div className="hidden w-1/2 md:flex">right</div>
+            <div className="hidden w-1/2 md:flex">
+            <pre>{JSON.stringify(resumeData, null, 2)}</pre>
+            </div>
           </div>
         </main>
-
-        <footer className="border-t px-3 py-5 text-center w-full">
-          <div className="max-w-7xl mx-auto flex flex-wrap justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <Button variant="secondary" className="cursor-pointer">
-                Previous step
-              </Button>
-              <Button variant="default" className="cursor-pointer">
-                Next step
-              </Button>
-            </div>
-            <div className="flex items-center gap-3">
-              <Button
-                variant="cancel"
-                size="lg"
-                asChild
-                className="cursor-pointer"
-              >
-                <Link href="/resumes">Cancel</Link>
-              </Button>
-              <p className="text-muted-foreground opacity-0">Saving ......</p>
-            </div>
-          </div>
-        </footer>
+        <Footer currentStep={currentStep} setCurrentStep={setStep} />
       </div>
       ;
     </>

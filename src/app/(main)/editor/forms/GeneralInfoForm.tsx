@@ -1,6 +1,8 @@
-import { generalInfoSchema, GeneralInfoValues } from '@/lib/validation'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { generalInfoSchema, GeneralInfoValues } from '@/lib/validation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { EditorFormProps } from '@/lib/types';
+import { debounce } from 'lodash';
 import {
   Form,
   FormControl,
@@ -9,17 +11,39 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useEffect, useMemo } from 'react';
 
-export default function GeneralInfoForm() {
+export default function GeneralInfoForm({ resumeData, setResumeData }: EditorFormProps) {
   const form = useForm<GeneralInfoValues>({
     resolver: zodResolver(generalInfoSchema),
     defaultValues: {
-      title: '',
-      description: '',
+      title: resumeData.title || '',
+      description: resumeData.description || '',
     },
   })
+
+const debouncedSave = useMemo(
+  () =>
+    debounce(async (values, trigger, setData) => {
+      const isValid = await trigger();
+      if (isValid) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setData((prevData: any) => ({ ...prevData, ...values }));
+      }
+    }, 500), // 500ms delay
+  [] // Empty dependency array means this is created only once
+);
+
+useEffect(() => {
+  const { unsubscribe } = form.watch(values => {
+    debouncedSave(values, form.trigger, setResumeData);
+  });
+
+  return () => unsubscribe();
+}, [form, debouncedSave, setResumeData]);
+
   return (
     <>
       <div className="max-w-xl mx-auto space-y-6">
