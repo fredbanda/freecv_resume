@@ -36,11 +36,10 @@ model Resume {
   linkedin      String?
   email         String?
 
+  educations       Education[]
   workExperiences WorkExperience[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
- 
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 
   @@map("resumes")
 }
@@ -60,4 +59,22 @@ model WorkExperience {
   updatedAt DateTime @updatedAt
 
   @@map("work_experiences")
+}
+
+model Education {
+  id            String    @id @default(uuid())
+  institution   String?
+  qualification String?
+  fieldOfStudy  String?
+  startDate     DateTime?
+  endDate       DateTime?
+  description   String?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("educations")
 }

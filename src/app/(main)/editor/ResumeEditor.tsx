@@ -9,7 +9,7 @@ import { ResumeValues } from '@/lib/validation';
 
 export default function ResumeEditor() {
   const searchParams = useSearchParams();
-  const [resumeData, setResumeData] = useState<ResumeValues>({})
+  const [resumeData, setResumeData] = useState<ResumeValues>({} as ResumeValues);
 
 
   const currentStep = searchParams.get('step') || steps[0].key
