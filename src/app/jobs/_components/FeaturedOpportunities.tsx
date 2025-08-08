@@ -67,7 +67,7 @@ export default function FeaturedOpportunities() {
                   </svg>
                   <span className="text-sm">San Francisco, CA</span>
                 </div>
-                <span className="text-2xl font-bold text-gray-800">$150K</span>
+                <span className="text-2xl font-bold text-gray-800">R150K</span>
               </div>
 
               <button className="w-full mt-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all">
@@ -127,7 +127,7 @@ export default function FeaturedOpportunities() {
                   </svg>
                   <span className="text-sm">New York, NY</span>
                 </div>
-                <span className="text-2xl font-bold text-gray-800">$180K</span>
+                <span className="text-2xl font-bold text-gray-800">R180K</span>
               </div>
 
               <button className="w-full mt-4 bg-gradient-to-r from-green-600 to-teal-600 text-white py-3 rounded-xl font-semibold hover:from-green-700 hover:to-teal-700 transition-all">
@@ -185,7 +185,7 @@ export default function FeaturedOpportunities() {
                   </svg>
                   <span className="text-sm">Los Angeles, CA</span>
                 </div>
-                <span className="text-2xl font-bold text-gray-800">$140K</span>
+                <span className="text-2xl font-bold text-gray-800">R140K</span>
               </div>
 
               <button className="w-full mt-4 bg-gradient-to-r from-red-600 to-pink-600 text-white py-3 rounded-xl font-semibold hover:from-red-700 hover:to-pink-700 transition-all">
