@@ -31,13 +31,13 @@ export default function SkillsForm({
   )
 
   useEffect(() => {
-  const { unsubscribe } = form.watch((values: SkillsValues) => {
+  const {  } = form.watch((values: any) => {
     debouncedSave(values, form.trigger, setResumeData);
 
     const cleanedSkills =
       values.skills
-        ?.filter((skill): skill is string => typeof skill === 'string' && skill.trim() !== '')
-        .map((skill) => skill.trim()) || [];
+        ?.filter((skill: any): skill is string => typeof skill === 'string' && skill.trim() !== '')
+        .map((skill: any) => skill.trim()) || [];
 
     setResumeData({
       ...resumeData,
@@ -45,7 +45,7 @@ export default function SkillsForm({
     });
   });
 
-  return () => unsubscribe();
+  return ;
 }, [form, debouncedSave, resumeData, setResumeData]);
 
 
