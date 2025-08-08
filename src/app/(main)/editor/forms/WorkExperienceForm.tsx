@@ -196,6 +196,9 @@ function WorkExperienceItem({ form, index, remove }: WorkExperienceItemProps) {
           </FormItem>
         )}
       />
+      <FormDescription className="text-sm text-muted-foreground mt-[-10px] italic mb-4">
+        For better CV/Resume strength, try to use action words like Managed a team of 5, Developed a new feature, etc.
+      </FormDescription>
 
         <Button
           variant="destructive"

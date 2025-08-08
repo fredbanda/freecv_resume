@@ -13,6 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  password  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  jobOpportunities JobOpportunity[]
+  resumes          Resume[]
+  resumeId         String?          @unique
+
+  @@map("users")
+}
+
 model Resume {
   id     String @id @default(uuid())
   userId String @unique
@@ -36,8 +51,10 @@ model Resume {
   linkedin      String?
   email         String?
 
-  educations       Education[]
+  educations      Education[]
   workExperiences WorkExperience[]
+  users           User?            @relation(fields: [userId], references: [id])
+  skills          String[]
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 
@@ -77,4 +94,27 @@ model Education {
   updatedAt DateTime @updatedAt
 
   @@map("educations")
+}
+
+model JobOpportunity {
+  id               String   @id @default(uuid())
+  title            String?
+  location         String?
+  company          String?
+  datePosted       DateTime @default(now())
+  jobType          String?
+  workMode         String?
+  salary           String?
+  categories       String[]
+  benefits         String?
+  aboutThisJob     String?
+  requirements     String?
+  responsibilities String?
+
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("job_opportunities")
 }
