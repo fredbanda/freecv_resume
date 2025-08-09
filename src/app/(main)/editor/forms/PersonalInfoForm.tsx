@@ -2,6 +2,7 @@
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,7 +16,10 @@ import { useForm } from 'react-hook-form'
 import { debounce } from 'lodash'
 import { EditorFormProps } from '@/lib/types'
 
-export default function PersonalInfoForm({resumeData, setResumeData}: EditorFormProps) {
+export default function PersonalInfoForm({
+  resumeData,
+  setResumeData,
+}: EditorFormProps) {
   const form = useForm<PersonalInfoValues>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
@@ -29,28 +33,27 @@ export default function PersonalInfoForm({resumeData, setResumeData}: EditorForm
       location: resumeData.location || '',
       city: resumeData.city || '',
       country: resumeData.country || '',
-
     },
   })
 
-const debouncedSave = useMemo(
-  () =>
-    debounce(async (values, trigger, setData) => {
-      const isValid = await trigger();
-      if (isValid) {
-        setData((prevData: any) => ({ ...prevData, ...values }));
-      }
-    }, 500), // 500ms delay
-  [] // Empty dependency array means this is created only once
-);
+  const debouncedSave = useMemo(
+    () =>
+      debounce(async (values, trigger, setData) => {
+        const isValid = await trigger()
+        if (isValid) {
+          setData((prevData: any) => ({ ...prevData, ...values }))
+        }
+      }, 500), // 500ms delay
+    [] // Empty dependency array means this is created only once
+  )
 
-useEffect(() => {
-  const { unsubscribe } = form.watch(values => {
-    debouncedSave(values, form.trigger, setResumeData);
-  });
+  useEffect(() => {
+    const { unsubscribe } = form.watch((values) => {
+      debouncedSave(values, form.trigger, setResumeData)
+    })
 
-  return () => unsubscribe();
-}, [form, debouncedSave, setResumeData]);
+    return () => unsubscribe()
+  }, [form, debouncedSave, setResumeData])
   return (
     <>
       <div className="max-w-xl mx-auto space-y-6">
@@ -86,6 +89,9 @@ useEffect(() => {
                 </FormItem>
               )}
             />
+            <FormDescription className="ttext-sm text-muted-foreground mt-[-10px] italic mb-4">
+              Please only include a photo when required by employer.
+            </FormDescription>
             <div className="grid grid-cols-2 gap-3">
               <FormField
                 control={form.control}
@@ -139,9 +145,12 @@ useEffect(() => {
                   <FormItem>
                     <FormLabel>Your Phone Number</FormLabel>
                     <FormControl>
-                      <Input {...field} 
-                      type='tel'
-                      placeholder="e.g. 0814402910" autoFocus />
+                      <Input
+                        {...field}
+                        type="tel"
+                        placeholder="e.g. 0814402910"
+                        autoFocus
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -154,7 +163,11 @@ useEffect(() => {
                   <FormItem>
                     <FormLabel>Your Email Address</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="e.g. sibzulu@gmail.com" autoFocus />
+                      <Input
+                        {...field}
+                        placeholder="e.g. sibzulu@gmail.com"
+                        autoFocus
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -169,7 +182,11 @@ useEffect(() => {
                   <FormItem>
                     <FormLabel>Your Home Address</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="e.g. 123 Mbokodo Street" autoFocus />
+                      <Input
+                        {...field}
+                        placeholder="e.g. 123 Mbokodo Street"
+                        autoFocus
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -210,7 +227,11 @@ useEffect(() => {
                   <FormItem>
                     <FormLabel>Country You Live In</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="e.g. South Africa" autoFocus />
+                      <Input
+                        {...field}
+                        placeholder="e.g. South Africa"
+                        autoFocus
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -91,8 +91,8 @@ export default function EducationForm({
                   institution: '',
                   startDate: '',
                   endDate: '',
-                  fieldOfStudy: '',
-                  description: '',
+                  grade: '',
+                  location: '',
                 })
               }
             >
@@ -146,12 +146,12 @@ function EducationItem({ form, index, remove }: EducationItemProps) {
       />
       <FormField
         control={form.control}
-        name={`educations.${index}.fieldOfStudy`}
+        name={`educations.${index}.location`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>What did you study?</FormLabel>
+            <FormLabel>Where did you study?</FormLabel>
             <FormControl>
-              <Textarea {...field} />
+              <Input {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -199,7 +199,7 @@ function EducationItem({ form, index, remove }: EducationItemProps) {
       </FormDescription>
       <FormField
         control={form.control}
-        name={`educations.${index}.description`}
+        name={`educations.${index}.grade`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>Describe your grades (optional)</FormLabel>

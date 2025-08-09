@@ -23,13 +23,20 @@ export const steps: {
         key: 'work-experience',
       },
     {
+      title: 'Skills',
+      component: React.lazy(() => import('./forms/SkillsForm')),
+      key: 'skills',
+    },
+
+    {
       title: 'Education',
       component: React.lazy(() => import('./forms/EducationForm')),
       key: 'education',
     },
+
     {
-      title: 'Skills',
-      component: React.lazy(() => import('./forms/SkillsForm')),
-      key: 'skills',
-    }
+      title: 'Summary',
+      component: React.lazy(() => import('./forms/SummaryForm')),
+      key: 'summary',
+    },
 ]

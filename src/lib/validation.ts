@@ -54,10 +54,10 @@ export const educationSchema = z.object({
     z.object({
       institution: optionalString,
       qualification: optionalString,
-      fieldOfStudy: optionalString,
+      location: optionalString,
       startDate: optionalString,
       endDate: optionalString,
-      description: optionalString,
+      grade: optionalString,
     })
   ),
 })
