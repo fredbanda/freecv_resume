@@ -99,11 +99,11 @@ export default function Navbar() {
 
         {/* Mobile Dropdown Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-gray-300 dark:bg-white shadow-lg z-10">
+          <div className="md:hidden absolute top-full left-0 w-full bg-gray-300 dark:bg-gray-900 shadow-lg z-100">
             <nav className="flex flex-col items-center gap-4 p-4">
               <Link
                 href="/resumes"
-                className={`text-sm dark:text-gray-800 font-semibold hover:underline ${
+                className={`text-sm dark:text-white text-gray-900 font-semibold hover:underline ${
                   pathname === '/resumes' ? 'underline' : ''
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -112,7 +112,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/editor"
-                className={`text-sm dark:text-gray-800 font-semibold hover:underline ${
+                className={`text-sm dark:text-white text-gray-900 font-semibold hover:underline ${
                   pathname === '/editor' ? 'underline' : ''
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -121,7 +121,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/jobs"
-                className={`text-sm dark:text-gray-800 font-semibold hover:underline ${
+                className={`text-sm dark:text-white text-gray-900 font-semibold hover:underline ${
                   pathname === '/jobs' ? 'underline' : ''
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}

@@ -7,8 +7,8 @@ import GetStarted from './GetStarted'
 export default function JobsHeroSection() {
   return (
     <>
-      <section className="gradient-bg min-h-screen flex items-center relative overflow-hidden">
-        <div className="absolute inset-0">
+      <section className="gradient-bg min-h-screen flex items-center relative overflow-hidden bg-gray-900 ">
+        <div className="absolute inset-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="blob absolute top-20 left-10 w-72 h-72 bg-purple-300 opacity-20 floating"></div>
           <div className="blob absolute bottom-20 right-10 w-96 h-96 bg-blue-300 opacity-20 floating-delayed"></div>
           <div className="absolute top-1/2 left-1/4 w-4 h-4 bg-white rounded-full opacity-70 floating"></div>

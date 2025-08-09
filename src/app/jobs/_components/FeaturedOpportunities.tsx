@@ -153,7 +153,7 @@ export default function FeaturedOpportunities() {
 
               <p className="text-gray-600 mb-4">
                 Design intuitive and engaging user experiences for our streaming
-                platform across all devices.
+                platform across all devices. The best job for creative minds
               </p>
 
               <div className="flex flex-wrap gap-2 mb-4">
